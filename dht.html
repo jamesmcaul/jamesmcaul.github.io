@@ -9,7 +9,7 @@
   <meta name="author" content="">
 
   <title>Dataroo</title>
-  
+
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 
@@ -565,17 +565,17 @@
       </div>
     </div>
     <div class="row blogParagraph">
-      <div class="col-md-19 offset-md-1">
+      <div class="col-md-10 offset-md-1">
         The fileTransfer function, called by the sending peer, opens a UDP socket on a new port and starts sending the file chunk by chunk. The size of the chunks are determined by the maximum segment size (MSS) variable I mentioned earlier. The fileReceive function is called by the receiving peer in parallel to the fileTransfer function. It opens a UDP socket and waits for the file chunks sent by the sending peer to arrive. It then reconstructs these files chunks into the file the the receiving peer originally requested.
       </div>
     </div>
     <div class="row blogParagraph">
-      <div class="col-md-19 offset-md-1">
+      <div class="col-md-10 offset-md-1">
           Now, it is important to consider that data transfer is not always reliable nor complete. If any of the file chunks either get lost or corrupted while travelling to the receiving peer, the final reconstructed file will be essentially. It is because of this that we must consider the topic of reliable data transfer. Data transfer over the internet is inherently unreliable, nothing is guaranteed to transfer completely or correctly. There are a few ways that data can be unreliably transferred... 
       </div>
     </div>
     <div class="row blogParagraph">
-      <div class="col-md-19 offset-md-1">
+      <div class="col-md-10 offset-md-1">
         <ul>
           <li>Data loss</li>
           <li>Data corruption</li>
@@ -585,7 +585,7 @@
       </div>
     </div>
     <div class="row blogParagraph">
-      <div class="col-md-19 offset-md-1">
+      <div class="col-md-10 offset-md-1">
           I mentioned before that TCP supports reliable transfers, but UDP does not. This means that TCP employs certain strategies remedy each of these possible scenarios. I choose to transfer my files using UDP so that I could implement one of these strategies myself. The effects of data loss, which manifests in the form of dropped chunks in our situation, can be avoided by resending data that has been lost. Because we are not aware of when a chunk gets lost along the network, we must instead confirm when each packet arrives at the destination, and resend the packet when that confirmation does not happen. The way I implement this confirmation strategy is through acknowledgements. When the receiver actually receives a packet, it sends an acknowledgement message back to the sender to indicate that it has successfully received the packet so that the sender can proceed to send the next packet. If the sender does not receive an acknowledgement message after a certain period of time, it assumes that the packet was lost during transmission, and resends the packet. (Notice that since I am simulating this network locally, it is nearly impossible for packets to be lost, thus I simulate packet loss with a drop probability). Other strategies include checksums to combate data corruption, and sequence numbering to combate data reordering and data duplication. 
       </div>
     </div>
